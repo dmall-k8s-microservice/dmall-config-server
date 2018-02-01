@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 step([$class: 'WsCleanup'])
-            git  poll: true,  url: 'https://gitee.com/linwenjun/dmall-config-server.git', branch: 'master'
+            git  poll: true,  url: 'https://github.com/dmall-k8s-microservice/dmall-config-server.git', branch: 'master'
             }
                 
         }
