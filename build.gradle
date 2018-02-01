@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.7.RELEASE'
+    }
+    repositories {
+        maven {
+            url 'http://ec2-54-95-33-138.ap-northeast-1.compute.amazonaws.com:8081/repository/maven-public'
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+jar {
+    baseName = 'config-server'
+    version =  '0.0.1'
+}
+
+repositories {
+    maven {
+        url 'http://ec2-54-95-33-138.ap-northeast-1.compute.amazonaws.com:8081/repository/maven-public'
+    }
+}
+
+
+ext {
+    springCloudVersion = 'Camden.SR7'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-config-server')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+task createWrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
