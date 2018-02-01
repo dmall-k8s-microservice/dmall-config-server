@@ -35,7 +35,9 @@ pipeline {
 
         stage('Deploy to DEV') {
             steps{
-                sh './deployToDEV.sh'
+                withCredentials([[$class: 'FileBinding', credentialsId: 'kubectl-config-file', variable: 'KUBECTL_CONFIG_FILE']]) {
+        			sh './deployToDEV.sh'
+    			}
             }
         }
   }  
